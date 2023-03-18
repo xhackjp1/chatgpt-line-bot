@@ -1,5 +1,6 @@
 "use strict";
 
+require('dotenv').config();
 const Log = require("@dazn/lambda-powertools-logger");
 const line = require("@line/bot-sdk");
 const axios = require("axios");
@@ -27,33 +28,9 @@ function generateResponse(statusCode, lineStatus, message) {
   };
 }
 
-// // GPT-3にリクエストを送信する
-// async function getCompletion(context) {
-//   const model = "gpt-3.5-turbo";
-//   const url = "https://api.openai.com/v1/chat/completions";
-//   const headers = {
-//     "Content-Type": "application/json",
-//     Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-//   };
-//   const data = {
-//     model,
-//     max_tokens: 1024,
-//     messages: context,
-//   };
-//   try {
-//     const response = await axios.post(url, data, { headers });
-//     Log.info("GPT-3", { data: response.data });
-//     return response.data;
-//   } catch (error) {
-//     Log.error("GPT-3", { error });
-//     return null;
-//   }
-// }
-
-// GPT-4にリクエストを送信する
+// GPT-3にリクエストを送信する
 async function getCompletion(context) {
-  // const model = "gpt-3.5-turbo";
-  const model = "gpt-3.5-turbo-0301";
+  const model = "gpt-3.5-turbo";
   const url = "https://api.openai.com/v1/chat/completions";
   const headers = {
     "Content-Type": "application/json",
@@ -169,32 +146,3 @@ module.exports.callback = async (event, context) => {
   }
 };
 
-// Twitterメイン処理
-module.exports.tweet = async (event, context) => {
-  const headers = { Authorization: `Bearer ${process.env.API_TOKEN}` };
-  const apiParams = {
-    api_key: process.env.PARKLOT_API_KEY,
-    client_id: process.env.PARKLOT_CLIENT_ID,
-    token: process.env.API_TOKEN,
-  };
-  const ongoingUrl = `${process.env.BASE_URL}/hashtag_campaign/lambda/hashtag_campaigns/ongoing`;
-
-  // 進行中のキャンペーンを取得する
-  const response = await axios.get(ongoingUrl, {
-    headers,
-    params: apiParams,
-  });
-  const hashtag_campaigns = response.data.records.hashtag_campaigns;
-  Log.info("開催中キャンペーン", hashtag_campaigns);
-
-  // フォローチェック
-  axios.get("https://api.twitter.com/1.1/friendships/show.json", {
-    headers,
-    params: {
-      source_screen_name: process.env.TWITTER_SCREEN_NAME,
-      target_screen_name: process.env.TWITTER_TARGET_SCREEN_NAME,
-    },
-  });
-
-  // await sendMessage("メッセージを受信しました。");
-};

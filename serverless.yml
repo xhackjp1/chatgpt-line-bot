@@ -7,9 +7,10 @@ provider:
   region: ap-northeast-1
   stage: ${opt:stage, 'dev'}
   environment:
-    CHANNEL_ACCESS_TOKEN: "YOUR LINE CHANNEL ACCESS TOKEN"
-    CHANNEL_SECRET: "YOUR LINE CHANNEL SECRET"
-    OPENAI_API_KEY: "YOUR OPENAI API KEY"
+    CHANNEL_ACCESS_TOKEN: [YOUR LINE CHANNEL_ACCESS_TOKEN]
+    CHANNEL_SECRET: [YOUR LINE CHANNEL_SECRET]
+    OPENAI_API_KEY: [YOUR OPENAI_API_KEY]
+    REDIS_URL: [YOUR REDIS_URL]
 
 custom:
   prune:
@@ -25,6 +26,6 @@ functions:
           path: callback
           method: post
           cors: true
-
+      
 plugins:
-  - serverless-prune-plugin  
+  - serverless-prune-plugin
