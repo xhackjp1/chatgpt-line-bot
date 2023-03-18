@@ -6,12 +6,15 @@ const line = require("@line/bot-sdk");
 const axios = require("axios");
 const Redis = require("ioredis");
 const request = require("request");
-const sendMessage = require("./util/send_message.js");
 
-const redis = new Redis.Cluster([
-  { port: 6379, host: process.env.REDIS_URL1 },
-  { port: 6379, host: process.env.REDIS_URL2 },
-]);
+/*
+* contextをredisに保存する
+*/
+
+// const redis = new Redis.Cluster([
+//   { port: 6379, host: process.env.REDIS_URL1 },
+//   { port: 6379, host: process.env.REDIS_URL2 },
+// ]);
 
 // LINEの設定
 const client = new line.Client({
@@ -145,4 +148,3 @@ module.exports.callback = async (event, context) => {
     return generateResponse(500, "NG", "error");
   }
 };
-

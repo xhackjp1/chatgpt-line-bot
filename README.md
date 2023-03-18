@@ -18,11 +18,15 @@ $ npm install
 
 ## Set Environment
 
-Edit serverless.yml
+Edit serverless.yml OR .env
 
 ```yml
 CHANNEL_ACCESS_TOKEN: "YOUR LINE CHANNEL ACCESS TOKEN"
 CHANNEL_SECRET: "YOUR LINE CHANNEL ACCESS TOKEN"
+```
+
+```.env
+cp .env.sample .env
 ```
 
 ## Deploy
@@ -75,3 +79,19 @@ Endpoint URL https://example.region.amazonaws.com/stage/callback
 ### AWS Lambda
 
 By default, AWS Lambda limits the total concurrent executions across all functions within a given region to 100. The default limit is a safety limit that protects you from costs due to potential runaway or recursive functions during initial development and testing. To increase this limit above the default, follow the steps in [To request a limit increase for concurrent executions](http://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html#increase-concurrent-executions-limit).
+
+### Redis
+
+In the provider section of the serverless.yml file, you can specify the VPC and subnet to be used for deploying the Lambda function. For example, you can write it like the following:
+
+```
+provider:
+  name: aws
+  runtime: nodejs16.x
+  vpc:
+    securityGroupIds:
+      - sg-xxxxxxxxxx
+    subnetIds:
+      - subnet-xxxxxxxxxx
+      - subnet-yyyyyyyyyy
+```

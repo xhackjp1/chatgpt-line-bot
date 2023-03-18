@@ -6,11 +6,14 @@ provider:
   profile: default
   region: ap-northeast-1
   stage: ${opt:stage, 'dev'}
+  # Redisを使いたい場合
+  # vpc:
+  #   securityGroupIds:
+  #     - sg-xxxx
+  #   subnetIds:
+  #     - subnet-xxxx
+  #     - subnet-xxxx
   environment:
-    CHANNEL_ACCESS_TOKEN: [YOUR LINE CHANNEL_ACCESS_TOKEN]
-    CHANNEL_SECRET: [YOUR LINE CHANNEL_SECRET]
-    OPENAI_API_KEY: [YOUR OPENAI_API_KEY]
-    REDIS_URL: [YOUR REDIS_URL]
 
 custom:
   prune:
@@ -20,7 +23,7 @@ custom:
 functions:
   line-bot:
     handler: handler.callback
-    timeout: 900
+    timeout: 30
     events:
       - http:
           path: callback
