@@ -21,6 +21,7 @@ $ npm install
 Edit serverless.yml OR .env
 
 ```yml
+# Edit serverless.yml
 CHANNEL_ACCESS_TOKEN: "YOUR LINE CHANNEL ACCESS TOKEN"
 CHANNEL_SECRET: "YOUR LINE CHANNEL ACCESS TOKEN"
 OPENAI_API_KEY: "YOUR OPENAI_API_KEY"
@@ -28,6 +29,7 @@ REDIS_URL: "YOUR REDIS_URL"
 ```
 
 ```.env
+# Copy .env.sample
 cp .env.sample .env
 ```
 
